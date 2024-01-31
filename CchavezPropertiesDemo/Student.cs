@@ -186,10 +186,7 @@ namespace StudentClassDemo
         //  2.5.	ToString may need to use Auto Properties instead of field names:
         public override string ToString()
         {
-            return
-                FirstName + " " + LastName
-                + " Major: " + Major
-                + " Average: " + Average;
+            return "ToString output: " + FirstName + " " + LastName + " Major: " + Major + " Average: " + Average;
         }
 
         // Do another tech from the live demo
