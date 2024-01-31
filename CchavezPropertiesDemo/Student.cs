@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Intrinsics.X86;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StudentClassDemo
 {
-    class Student
+
+    public class Student
     {
         //-------------------------------------
         //Private Fields
@@ -21,6 +24,34 @@ namespace StudentClassDemo
         private string studentLastName;
         private string studentNumber;
 
+
+        //-------------------------------------
+        //  Properties
+        //-------------------------------------
+        //  2.2.	Use auto-properties for values that don’t need to call calculate:
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string StudentNumber { get; set; }
+        public string Major { get; set; }
+        public double Average { get; private set; }
+
+        //  2.3.	Use fully defined properties for values that need to call calculate:
+        // Fully Qualified Property examples
+        public int Score1
+        {
+            get { return score1; }
+            set { score1 = value; CalcAverage(); }
+        }
+        public int Score2
+        {
+            get { return score2; }
+            set { score2 = value; CalcAverage(); }
+        }
+        public int Score3
+        {
+            get { return score3; }
+            set { score3 = value; CalcAverage(); }
+        }
 
         //-------------------------------------
         //Constructors
@@ -146,9 +177,31 @@ namespace StudentClassDemo
         //-------------------------------------
         //Instance Methods
         //------------------------------------
+        //  2.4.	Calculate method should remain unchanged:
         public void CalcAverage()
         {
             average = score1 + score2 + score3 / 3.0;
+        }
+
+        //  2.5.	ToString may need to use Auto Properties instead of field names:
+        public override string ToString()
+        {
+            return
+                FirstName + " " + LastName
+                + " Major: " + Major
+                + " Average: " + Average;
+        }
+
+        // Do another tech from the live demo
+        public static bool DoAnother()
+        {
+            Console.WriteLine("Do you want to enter another student? (y/n): ");
+            string? answer = Console.ReadLine();
+            if (string.IsNullOrEmpty(answer)) 
+            { 
+                return false;
+            }
+            return answer.ToLower()[0] == 'y';
         }
     }
 }
